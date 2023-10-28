@@ -29,31 +29,49 @@
         </div>
     </div>
 </div>
-
-    <div class="list-item-content">
-        <table class="list-item">
-            <tr>
-                <td>Id</td>
-                <td>Операция</td>
-                <td>Доход/Расход</td>
-
-                <td>Оперции</td>
-            </tr>
-            <tr th:each="item : ${data}">
-                <td th:text="${item.getId}"></td>
-                <td th:text="${item.getNameOperation()}"></td>
-                <td th:text="${item.getTypeOperation()}"></td>
-                <td>
-                    <form th:action="@{/edit-operation-name}" method="post">
-                        <input type="hidden" th:name="itemId" th:value="${item.getId()}" />
-                        <button type="submit" class="inline-button">Изменить</button>
-                    </form>
-                </td>
-            </tr>
-        </table>
-    </div>
-    </div>
-    <style>
+<div class="form-container">
+    <form action="/all-operation" method="POST">
+        <label for="userName">Выберите пользователя:</label>
+        <select id="userName" name="userName">
+            <option th:each="userName : ${userNameBase}" th:value="${userName}" th:text="${userName}"></option>
+        </select>
+        <input type="submit" value="Ок">
+    </form>
+    <br><br>
+</div>
+<div class="H1">
+    <p th:text="${'Выписка : ' + userName}" class="inline-paragraph"></p>
+</div>
+<div class="list-item-content">
+    <table class="list-item">
+        <tr>
+            <td>Date</td>
+            <td>Operation</td>
+            <td>Sum</td>
+            <td>Description</td>
+            <td>DELETE</td>
+        </tr>
+        <tr th:each="item : ${data}">
+            <td th:text="${item.getDate()}"></td>
+            <td th:text="${item.getNameOperation()}"></td>
+            <td th:text="${item.getSum() + ' грн'}"></td>
+            <td th:text="${item.getDescription()}"></td>
+            <td>
+                <form th:action="@{/delete-operation}" method="post">
+                    <input type="hidden" th:name="itemId" th:value="${item.getId()}" />
+                    <div class="list-item-content">
+                        <button type="submit" class="inline-button">Удалить</button>
+                    </div>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="total">
+    <p th:text="${'Итого: ' + summa + ' грн'}" class="inline-paragraph"></p>
+</div>
+</div>
+<style>
         /* Блок меню */
         .menu-container {
             text-align: center;
@@ -116,6 +134,22 @@
             padding: 20px; /* Отступы вокруг таблицы */
         }
 
+        .H1 {
+            text-align: center; /* Выравнивание по центру */
+            background-color: #f0f0f0; /* Цвет фона */
+            padding: 10px; /* Внутренние отступы */
+        }
+
+        .inline-paragraph {
+            font-size: 24px; /* Размер шрифта */
+            font-weight: bold; /* Жирное начертание */
+            color: #333; /* Цвет текста */
+        }
+        /* new */
+        .list-item-content {
+            padding: 0px; /* Отступы вокруг таблицы */
+        }
+
         /* Стиль для таблицы */
         .list-item {
             width: 100%; /* Ширина таблицы на всю доступную ширину */
@@ -150,7 +184,70 @@
         .list-item tr:nth-child(odd) {
             background-color: #ffffff; /* Цвет фона нечетных строк */
         }
-    </style>
+
+        .link-container {
+            text-align: center; /* Выравнивание текста внутри контейнера по центру */
+        }
+
+        /* Стиль для ссылки */
+        #a {
+            text-decoration: none; /* Убрать подчеркивание с ссылки */
+            color: #007bff; /* Цвет текста ссылки */
+            font-weight: bold; /* Полужирный шрифт для ссылки */
+        }
+
+        /* Стиль для формы */
+        form {
+            max-width: 400px; /* Максимальная ширина формы */
+            margin: 0 auto; /* Выравнивание формы по центру страницы */
+        }
+
+        /* Стиль для метки (label) */
+        label {
+            display: block; /* Сделать метку блочным элементом (на новой строке) */
+            margin-bottom: 10px; /* Отступ снизу метки */
+        }
+
+        /* Стиль для контейнера выбора пользователя */
+        .select-container {
+            display: flex; /* Используем Flexbox для выравнивания элементов по горизонтали */
+            align-items: center; /* Выравнивание элементов по центру по вертикали */
+        }
+
+        /* Стиль для выпадающего списка (select) */
+        select {
+            flex: 1; /* Занимать оставшееся пространство внутри контейнера */
+            padding: 10px; /* Внутренние отступы */
+            border: 1px solid #ccc; /* Граница */
+        }
+
+        /* Стиль для кнопки отправки (input[type="submit"]) */
+        input[type="submit"] {
+            background-color: #007bff; /* Цвет фона кнопки */
+            color: #fff; /* Цвет текста кнопки */
+            padding: 10px 20px; /* Внутренние отступы кнопки */
+            border: none; /* Убрать границу кнопки */
+            cursor: pointer; /* Изменить курсор при наведении на кнопку */
+        }
+
+        /* Стиль для кнопки отправки при наведении */
+        input[type="submit"]:hover {
+            background-color: #0056b3; /* Цвет фона при наведении */
+        }
+        .total {
+            text-align: right; /* Выравнивание текста по правому краю */
+            font-weight: bold; /* Полужирный шрифт */
+            font-size: 18px; /* Размер шрифта */
+            margin-top: 20px; /* Отступ сверху */
+            margin-right: 50px;
+        }
+        .name{
+            max-width: 1200px;
+            text-align: right; /* Выравнивание текста по правому краю */
+            text: bold;
+        }
+
+</style>
 </div>
 </body>
 </html>

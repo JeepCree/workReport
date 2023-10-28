@@ -6,29 +6,151 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <div class="menu-container">
-        <div class="menu-item">
+<div class="menu-container">
+    <div class="menu-item">
         <span>Пользователи</span>
         <div class="sub-menu">
             <a href="/add-user">Добавить пользователя</a>
             <a href="/all-users">Список пользователей</a>
         </div>
     </div>
-        <div class="menu-item">
+    <div class="menu-item">
         <span>Операции</span>
         <div class="sub-menu">
-            <a href="/add-operation">Добавить операцию</a>
-            <a href="/edit-operation">Список операций</a>
+            <a href="/add-operation-name">Добавить операцию</a>
+            <a href="/all-operation-name">Список операций</a>
         </div>
     </div>
-        <div class="menu-item">
-        <a href="/statistic"><span>Отчет</span></a>
+    <div class="menu-item">
+        <span>Отчет</span>
+        <div class="sub-menu">
+            <a href="/add-operation">Добавить транзакцию</a>
+            <a href="/all-operation">Список транзакций</a>
+        </div>
     </div>
 </div>
 
-    <div class="operation-container">
+    <div class="list-item-content">
+        <table class="list-item">
+            <tr>
+                <td>Id</td>
+                <td>Операция</td>
+                <td>Доход/Расход</td>
 
+                <td>Оперции</td>
+            </tr>
+            <tr th:each="item : ${data}">
+                <td th:text="${item.getId}"></td>
+                <td th:text="${item.getNameOperation()}"></td>
+                <td th:text="${item.getTypeOperation()}"></td>
+                <td>
+                    <form th:action="@{/edit-operation-name}" method="post">
+                        <input type="hidden" th:name="itemId" th:value="${item.getId()}" />
+                        <button type="submit" class="inline-button">Изменить</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
     </div>
+    </div>
+    <style>
+        /* Блок меню */
+        .menu-container {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .menu-item {
+            display: inline-block;
+            position: relative;
+            margin: 0 10px;
+        }
+
+        .menu-item span {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 18px;
+            display: block;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .menu-item a {
+            text-decoration: none; /* Убираем подчеркивание для ссылки "Отчет" */
+        }
+
+        .sub-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #f6f6f6;
+            border-radius: 0 0 5px 5px;
+            z-index: 1;
+            padding: 10px 0;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            width: 200px;
+        }
+
+        .menu-item:hover .sub-menu {
+            display: block;
+        }
+
+        .sub-menu a {
+            display: block;
+            padding: 10px 20px;
+            color: #333;
+            text-decoration: none;
+            border-radius: 0;
+            transition: background-color 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .sub-menu a:hover {
+            background-color: #dcdbdb;
+        }
+        .list-item-content {
+            padding: 20px; /* Отступы вокруг таблицы */
+        }
+
+        /* Стиль для таблицы */
+        .list-item {
+            width: 100%; /* Ширина таблицы на всю доступную ширину */
+            border-collapse: collapse; /* Схлопнуть границы ячеек */
+        }
+
+        /* Стиль для строк */
+        .list-item tr {
+            border-bottom: 1px solid #ccc; /* Горизонтальные линии-разделители между строками */
+        }
+
+        /* Стиль для ячеек */
+        .list-item td {
+            padding: 10px; /* Внутренние отступы внутри ячеек */
+            text-align: center; /* Центрировать текст в ячейках */
+            border: 1px solid #ccc; /* Границы ячеек */
+        }
+
+        /* Стиль для заголовков */
+        .list-item th {
+            padding: 10px; /* Внутренние отступы внутри ячеек */
+            text-align: center; /* Центрировать текст в ячейках */
+            border: 1px solid #ccc; /* Границы ячеек */
+            background-color: #f5f5f5; /* Фоновый цвет заголовков */
+            font-weight: bold; /* Полужирный шрифт для заголовков */
+        }
+        .list-item tr:nth-child(even) {
+            background-color: #f2f2f2; /* Цвет фона четных строк */
+        }
+
+        /* Стиль для нечетных строк */
+        .list-item tr:nth-child(odd) {
+            background-color: #ffffff; /* Цвет фона нечетных строк */
+        }
+    </style>
 </div>
 </body>
 </html>

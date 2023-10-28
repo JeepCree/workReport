@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" media="all" href="../../styles.css" th:href="@{src/main/resources/static/styles/styles.css}"/>
+    <link rel="stylesheet" type="text/css" media="all" href="../../static/styles.css" th:href="@{styles/styles.css}"/>
     <title>Ввод информации</title>
 </head>
 <body>
@@ -43,116 +43,89 @@
         </li>
     </ul>
 </div>
-<!--<ul>-->
-<!--    <p th:each="item : ${data}" th:text="${item}"></p>-->
-<!--</ul>-->
+
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f2f2f2;
-        margin: 0;
-        padding: 0;
-    }
-
+    /* Стиль для контейнера формы */
     .form-container {
-        max-width: 400px;
-        margin: 0 auto;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        text-align: right;
+        max-width: 400px; /* Максимальная ширина формы */
+        margin: 0 auto; /* Выравнивание формы по центру страницы */
+        padding: 20px; /* Отступ вокруг формы */
+        border: 1px solid #ccc; /* Граница формы */
+        background-color: #f5f5f5; /* Фоновый цвет формы */
+        border-radius: 5px; /* Закругление углов формы */
     }
 
-    h1 {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-    ul {
-        text-align: center;
-    }
-    .inline-paragraph {
-        display: inline; /* Сделать абзац строчным элементом */
-        margin-right: 10px; /* Добавить небольшой отступ справа между абзацем и кнопкой */
+    /* Стиль для заголовка формы */
+    .form-container h1 {
+        text-align: center; /* Выравнивание текста заголовка по центру */
+        margin-bottom: 20px; /* Отступ снизу заголовка */
     }
 
-    .inline-button {
-        display: inline; /* Сделать кнопку строчным элементом */
-        vertical-align: middle; /* Выровнять кнопку вертикально по центру абзаца (может потребоваться настройка) */
-    }
+    /* Стиль для группы полей ввода */
     .form-group {
-        margin-bottom: 15px;
-        text-align: right; /* Выравнивание по правой стороне */
-        padding-right: 20px; /* Отступ справа */
+        margin-bottom: 10px; /* Отступ снизу группы полей */
     }
 
-    label {
-        display: block;
-        font-weight: bold;
-        margin-bottom: 5px;
-        text-align: left; /* Выравнивание по левой стороне */
+    /* Стиль для метки (label) */
+    .form-group label {
+        display: block; /* Сделать метку блочным элементом (на новой строке) */
     }
 
-    input[type="text"],
-    input[type="number"] {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        font-size: 16px;
-        text-align: left; /* Выравнивание по левой стороне */
-        padding-right: 10px; /* Отступ справа */
+    /* Стиль для полей ввода (input) */
+    .form-group input {
+        width: 100%; /* Занимать всю доступную ширину */
+        padding: 10px; /* Внутренние отступы полей ввода */
+        border: 1px solid #ccc; /* Граница полей ввода */
+        border-radius: 5px; /* Закругление углов полей ввода */
     }
 
-    button {
-        background-color: #242524;
-        color: #ffffff;
-        border: none;
-        border-radius: 3px;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-
-    }
-    button:hover {
-        background-color: #1a1a1a;
+    /* Стиль для кнопки отправки (button) */
+    .form-container button {
+        background-color: #007bff; /* Цвет фона кнопки */
+        color: #fff; /* Цвет текста кнопки */
+        padding: 10px 20px; /* Внутренние отступы кнопки */
+        border: none; /* Убрать границу кнопки */
+        border-radius: 5px; /* Закругление углов кнопки */
+        cursor: pointer; /* Изменить курсор при наведении на кнопку */
+        margin-top: 10px; /* Отступ сверху кнопки */
     }
 
+    /* Стиль для ссылки удаления данных */
+    #a {
+        text-decoration: none; /* Убрать подчеркивание с ссылки */
+        color: #007bff; /* Цвет текста ссылки */
+        font-weight: bold; /* Полужирный шрифт для ссылки */
+    }
 
-      .list-item {
-          background-color: #f9f9f9;
-          border: 1px solid #ddd;
-          /*padding: 10px;*/
-          /*margin: 5px 0;*/
-          list-style-type: none;
+    /* Стиль для заголовка "Users" */
+    h1 {
+        text-align: center; /* Выравнивание текста заголовка по центру */
+        margin-top: 20px; /* Отступ сверху заголовка */
+    }
 
-      }
-
+    /* Стиль для элементов списка пользователей */
     .list-item-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-ul{
-    list-style-type: none; /* Убираем маркеры (точки) */
-}
-    .inline-paragraph {
-        flex: 1; /* Растянуть абзац, чтобы он занимал всю доступную ширину */
-        border: 1px solid #ddd; /* Рамка вокруг параграфа */
-        padding: 10px; /* Внутренний отступ вокруг текста */
-        margin: 4px;
-        background-color: white; /* Белый фон */
-        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); /* Тень */
+        display: flex; /* Используем Flexbox для выравнивания элементов списка */
+        align-items: center; /* Выравнивание элементов по центру по вертикали */
+        justify-content: space-between; /* Равномерное распределение элементов по горизонтали */
+        margin-bottom: 10px; /* Отступ снизу элемента списка */
     }
 
-    .inline-button {
-        background-color: #f44336; /* Цвет кнопки */
-        color: white;
-        border: none;
-        border-radius: 5px;
-        padding: 5px 10px;
-        cursor: pointer;
+    /* Стиль для параграфа в элементе списка */
+    .list-item-content p {
+        flex: 1; /* Занимать оставшееся пространство внутри элемента списка */
     }
+
+    /* Стиль для кнопки "Удалить" в элементе списка */
+    .inline-button {
+        background-color: #ff3333; /* Цвет фона кнопки "Удалить" */
+        color: #fff; /* Цвет текста кнопки "Удалить" */
+        padding: 5px 10px; /* Внутренние отступы кнопки "Удалить" */
+        border: none; /* Убрать границу кнопки "Удалить" */
+        border-radius: 5px; /* Закругление углов кнопки "Удалить" */
+        cursor: pointer; /* Изменить курсор при наведении на кнопку "Удалить" */
+    }
+
 </style>
 </body>
 </html>

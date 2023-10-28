@@ -6,31 +6,35 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <div class="menu-container">
-        <div class="menu-item">
+<div class="menu-container">
+    <div class="menu-item">
         <span>Пользователи</span>
         <div class="sub-menu">
             <a href="/add-user">Добавить пользователя</a>
             <a href="/all-users">Список пользователей</a>
         </div>
     </div>
-        <div class="menu-item">
+    <div class="menu-item">
         <span>Операции</span>
         <div class="sub-menu">
-            <a href="/add-operation">Добавить операцию</a>
-            <a href="/edit-operation">Список операций</a>
+            <a href="/add-operation-name">Добавить операцию</a>
+            <a href="/all-operation-name">Список операций</a>
         </div>
     </div>
-        <div class="menu-item">
-        <a href="/statistic"><span>Отчет</span></a>
+    <div class="menu-item">
+        <span>Отчет</span>
+        <div class="sub-menu">
+            <a href="/add-operation">Добавить транзакцию</a>
+            <a href="/all-operation">Список транзакций</a>
+        </div>
     </div>
 </div>
 
     <div class="form-container">
-        <form method="post" action="/add-operation">
+        <form method="post" action="/add-operation-name">
             <div class="form-group">
                 <label for="name">Наименование операции:</label>
-                <input type="text" id="name" name="name" required>
+                <input type="text" id="name" name="nameOperation" required>
             </div>
 
             <div class="radio-container">

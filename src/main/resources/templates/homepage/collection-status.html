@@ -6,33 +6,47 @@
 </head>
 <body>
 <div id="content">
-    <p th:text="${percentage}" class="inline-paragraph"></p>
+<!--    <p th:text="${percentage}" class="inline-paragraph"></p>-->
     <div id="loading-bar">
-        <div id="progress-bar" th:style="'width: ' + ${percentage} + '%;'"></div>
+        <div id="progress-bar" th:style="'width: ' + ${percentage} + '%;'">
+        </div>
     </div>
-    <!-- Здесь будет отображаться контент, загружаемый AJAX -->
+    <div class="centered-content">
+        <b><p id="content-in"></p></b>
+    </div>
 </div>
 <style>
     #loading-bar {
         width: 100%;
         height: 20px;
-        background-color: #ccc;
+        background-color: rgba(231, 239, 231, 0.99);
+        border-radius: 10px; /* Задайте радиус скругления, например, 10px */
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     }
-
     #progress-bar {
         height: 100%;
-        background-color: green;
-        transition: width 0.3s; /* Добавление анимации для сглаженного заполнения */
+        background-color: #26d726;
+        transition: width 0.1s; /* Добавление анимации для сглаженного заполнения */
+        border-radius: 10px; /* Задайте радиус скругления, например, 10px */
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
+    .centered-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        color: #f44336;
     }
 </style>
 <script th:inline="javascript">
     function updateProgress() {
         fetch('/collection-status')
-            .then(response => response.json()) // Предполагая, что сервер возвращает JSON
+            .then(response => response.text()) // Получить текстовый ответ
             .then(data => {
-                // Обновить элементы на странице с полученными данными
-                document.getElementById('percentage').innerText = data.percentage;
-                document.getElementById('progress-bar').style.width = data.percentage + '%';
+                // data - это строка, содержащая целое число
+                var percentage = parseInt(data);
+                document.getElementById('progress-bar').style.width = percentage + '%';
+                document.getElementById('content-in').innerText = percentage;
             })
             .catch(error => {
                 console.error('Произошла ошибка:', error);
@@ -40,7 +54,7 @@
     }
 
     // Обновление прогресса каждые 5 секунд
-    setInterval(updateProgress, 500);
+    setInterval(updateProgress, 100);
 </script>
 </body>
 </html>

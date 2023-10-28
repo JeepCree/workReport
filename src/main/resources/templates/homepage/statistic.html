@@ -1,10 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Статистика</title>
 </head>
 <body>
-$END$
+<div class="link-container">
+    <a id="a" href="/work">Добавить операцию</a><br><br>
+</div>
+
+<div>
+    <form action="/statistic" method="POST">
+        <label for="userName">Выберите пользователя:</label>
+        <select id="userName" name="userName">
+            <option th:each="userName : ${userNameOptions}" th:value="${userName}" th:text="${userName}"></option>
+        </select>
+        <input type="submit" value="Ок">
+    </form>
+    <br><br>
+</div>
+<div class="name">
+    <p th:text="${userName}"></p>
+</div>
+<div class="change">
+    <form action="#" method="POST">
+        <label for="userName">Выберите пользователя:</label>
+        <br>
+        <select id="sort" name="sort">
+            <option th:each="sort : ${sorter}" th:value="${sort}" th:text="${sort}"></option>
+        </select>
+        <input type="submit" value="Ок">
+    </form>
+</div>
+<div>
+    <div class="list-item-content">
+                    <table class="list-item">
+                        <tr>
+                            <td>Date</td>
+                            <td>Operation</td>
+                            <td>Sum</td>
+                            <td>Description</td>
+<!--                            <td>Name</td>-->
+                        </tr>
+                        <tr th:each="item : ${data}">
+                            <td th:text="${item.getDate()}"></td>
+                            <td th:text="${item.getNameOperation()}"></td>
+                            <td th:text="${item.getSum() + ' грн'}"></td>
+                            <td th:text="${item.getDescription()}"></td>
+<!--                            <td th:text="${item.getUser()}"></td>-->
+                        </tr>
+                    </table>
+    </div>
+</div>
+<div class="total">
+    <p th:text="${'Итого: ' + summa + ' грн'}" class="inline-paragraph"></p>
+</div>
+
+<style>
+    .list-item-content {
+        padding: 20px; /* Отступы вокруг таблицы */
+    }
+
+    /* Стиль для таблицы */
+    .list-item {
+        width: 100%; /* Ширина таблицы на всю доступную ширину */
+        border-collapse: collapse; /* Схлопнуть границы ячеек */
+    }
+
+    /* Стиль для строк */
+    .list-item tr {
+        border-bottom: 1px solid #ccc; /* Горизонтальные линии-разделители между строками */
+    }
+
+    /* Стиль для ячеек */
+    .list-item td {
+        padding: 10px; /* Внутренние отступы внутри ячеек */
+        text-align: center; /* Центрировать текст в ячейках */
+        border: 1px solid #ccc; /* Границы ячеек */
+    }
+
+    /* Стиль для заголовков */
+    .list-item th {
+        padding: 10px; /* Внутренние отступы внутри ячеек */
+        text-align: center; /* Центрировать текст в ячейках */
+        border: 1px solid #ccc; /* Границы ячеек */
+        background-color: #f5f5f5; /* Фоновый цвет заголовков */
+        font-weight: bold; /* Полужирный шрифт для заголовков */
+    }
+    .list-item tr:nth-child(even) {
+        background-color: #f2f2f2; /* Цвет фона четных строк */
+    }
+
+    /* Стиль для нечетных строк */
+    .list-item tr:nth-child(odd) {
+        background-color: #ffffff; /* Цвет фона нечетных строк */
+    }
+
+    .link-container {
+        text-align: center; /* Выравнивание текста внутри контейнера по центру */
+    }
+
+    /* Стиль для ссылки */
+    #a {
+        text-decoration: none; /* Убрать подчеркивание с ссылки */
+        color: #007bff; /* Цвет текста ссылки */
+        font-weight: bold; /* Полужирный шрифт для ссылки */
+    }
+
+    /* Стиль для формы */
+    form {
+        max-width: 400px; /* Максимальная ширина формы */
+        margin: 0 auto; /* Выравнивание формы по центру страницы */
+    }
+
+    /* Стиль для метки (label) */
+    label {
+        display: block; /* Сделать метку блочным элементом (на новой строке) */
+        margin-bottom: 10px; /* Отступ снизу метки */
+    }
+
+    /* Стиль для контейнера выбора пользователя */
+    .select-container {
+        display: flex; /* Используем Flexbox для выравнивания элементов по горизонтали */
+        align-items: center; /* Выравнивание элементов по центру по вертикали */
+    }
+
+    /* Стиль для выпадающего списка (select) */
+    select {
+        flex: 1; /* Занимать оставшееся пространство внутри контейнера */
+        padding: 10px; /* Внутренние отступы */
+        border: 1px solid #ccc; /* Граница */
+    }
+
+    /* Стиль для кнопки отправки (input[type="submit"]) */
+    input[type="submit"] {
+        background-color: #007bff; /* Цвет фона кнопки */
+        color: #fff; /* Цвет текста кнопки */
+        padding: 10px 20px; /* Внутренние отступы кнопки */
+        border: none; /* Убрать границу кнопки */
+        cursor: pointer; /* Изменить курсор при наведении на кнопку */
+    }
+
+    /* Стиль для кнопки отправки при наведении */
+    input[type="submit"]:hover {
+        background-color: #0056b3; /* Цвет фона при наведении */
+    }
+    .total {
+        text-align: right; /* Выравнивание текста по правому краю */
+        font-weight: bold; /* Полужирный шрифт */
+        font-size: 18px; /* Размер шрифта */
+        margin-top: 20px; /* Отступ сверху */
+        margin-right: 50px;
+    }
+    .name{
+        max-width: 1200px;
+        text-align: right; /* Выравнивание текста по правому краю */
+        text: bold;
+    }
+</style>
 </body>
 </html>

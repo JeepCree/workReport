@@ -24,37 +24,34 @@ public class MainController {
         return "error"; // Вернуть страницу с сообщением об ошибке
     }
 
-    @PostMapping(path="/") // Map ONLY POST Requests
-    public String addNewUser (
-            String name,
-            String surname,
-            String midname,
-            int age, Model model) {
-        // @ResponseBody means the returned String is the response, not a view name
-        // @RequestParam means it is a parameter from the GET or POST request
-
+    @PostMapping(path="/a") // Map ONLY POST Requests
+    public String addNewUser (String name, String surname, String midname, int age, Model model) {
         User n = new User();
-        n.setName(name);
-        n.setSurname(surname);
-        n.setMidname(midname);
-        n.setAge(age);
 
         userRepository.save(n);
         Iterable<User> data = userRepository.findAll(sort);
         model.addAttribute("data", data);
-
-        return "home";
+        return "redirect:/";
     }
-    @GetMapping(path="/delete")
+    @PostMapping("/delete")
+    public String deleteUser(@RequestParam("itemId") int itemId, Model model) {
+        if (userRepository.existsById(itemId)) {
+            userRepository.deleteById(itemId);
+        } else {
+            return "redirect:/";
+        }
+        return "redirect:/"; // Обратите внимание на коррекцию пути
+    }
+    @GetMapping(path="/delete-all")
     public String deleteAllUsers(Model model) {
         userRepository.deleteAll();
-        return "home";
+        return "redirect:/";
     }
-    @GetMapping(path="/")
+    @GetMapping(path="/a")
     public String getAllUsers(Model model) {
         // This returns a JSON or XML with the users
         Iterable<User> data = userRepository.findAll(sort);
         model.addAttribute("data", data);
-        return "home";
+        return "homepage/home";
     }
 }

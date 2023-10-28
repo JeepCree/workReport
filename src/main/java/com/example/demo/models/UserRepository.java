@@ -1,10 +1,11 @@
 package com.example.demo.models;
 
 import com.example.demo.dataclass.User;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends CrudRepository<User, Integer> {
+import java.util.List;
 
-    Iterable<User> findAll(Sort sort);
+public interface UserRepository extends JpaRepository<User, Integer> {
+    List<User> findAll();
+    User findUserById(int itemId);
 }
