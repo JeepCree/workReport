@@ -69,6 +69,7 @@ public class UserController {
     }
     @PostMapping("/saveUser")
     public String saveUser(int itemId, Model model) {
+        model.addAttribute(itemId);
 return "redirect:/all-users";
     }
 }
