@@ -24,8 +24,6 @@ public class OperationController {
 
         return "add-operation-name";
     }
-
-
     @PostMapping("/add-operation-name")
     public String addOperation(String nameOperation, String choise, Model model) {
             Operation operation = new Operation();
@@ -40,10 +38,6 @@ public class OperationController {
         model.addAttribute("data", data);
         return "all-operation-name";
     }
-//    @PostMapping("/all-operation-name")
-//    public String editOperation(Model model) {
-//        return "all-operation-name";
-//    }
     @GetMapping("/edit-operation-name")
     public String getEditOperation(Model model) {
         return "redirect:/edit-operation-name";

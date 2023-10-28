@@ -19,21 +19,17 @@ import java.util.List;
 public class ReportController {
     private final UserService userService;
     private final OperationService operationService;
-
     @Autowired
     public ReportController (UserService userService, OperationService operationService) {
         this.userService = userService;
         this.operationService = operationService;
     }
-
-
     @Autowired
     ReportRepository reportRepository;
     @GetMapping("/add-operation")
     public String getOperationPage(Model model) {
         List<String> userNameBase = userService.getAllUserNames();
         List<String> operationNameBase = operationService.getAllOperationNames();
-
         model.addAttribute("userNameBase", userNameBase);
         model.addAttribute("operationNameBase", operationNameBase);
         return "add-operation";

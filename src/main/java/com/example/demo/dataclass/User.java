@@ -14,6 +14,7 @@ public class User {
     @jakarta.persistence.Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
+    private long userId;
     private String fio;
     @Temporal(TemporalType.DATE)
     private Date date;

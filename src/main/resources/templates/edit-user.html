@@ -12,6 +12,7 @@
     <form method="post" th:action="@{/saveUser}" th:object="${user}">
     <table class="list-item">
         <tr>
+            <td>ID</td>
             <td>ФИО</td>
             <td>Телефон</td>
             <td>Адрес</td>
@@ -20,14 +21,18 @@
             <td>Оперции</td>
         </tr>
         <tr th:each="item : ${user}">
-            <td><input type="text" id="fio" th:field="*{fio}"></td>
-            <td><input type="text" id="phone" th:field="*{phone}"></td>
-            <td><input type="text" id="address" th:field="*{address}"></td>
-            <td><input type="date" id="date" th:field="*{date}"></td>
             <td>
-                <select type="select" id="sex" th:field="*{sex}">
-                    <option value="Мужской">мужской</option>
-                    <option value="Женский">женский</option>
+                <input type="hidden" th:field="*{id}" name="id">
+                <span th:text="*{id}"></span>
+            </td>
+            <td><input type="text" id="fio" th:field="*{fio}" name="fio"></td>
+            <td><input type="text" id="phone" th:field="*{phone}" name="phone"></td>
+            <td><input type="text" id="address" th:field="*{address}" name="address"></td>
+            <td><input type="date" id="date" th:field="*{date}" name="date"></td>
+            <td>
+                <select type="select" id="sex" th:field="*{sex}" name="sex">
+                    <option value="мужской">мужской</option>
+                    <option value="женский">женский</option>
                 </select>
             </td>
             <td>
