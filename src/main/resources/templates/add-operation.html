@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Work</title>
+</head>
+<body>
+<div class="link-container">
+    <a id="a" href="/statistic">Статистика</a><br><br>
+</div>
+<div>
+    <form action="/add" method="POST">
+        <label for="userName">Выберите пользователя:</label>
+        <select id="userName" name="userName">
+            <option th:each="userName : ${userNameOptions}" th:value="${userName}" th:text="${userName}"></option>
+        </select><br><br>
+        <label for="nameOperation">Выберите операцию:</label>
+        <select id="nameOperation" name="nameOperation">
+            <option th:each="nameOperation : ${nameOperationOptions}" th:value="${nameOperation}" th:text="${nameOperation}"></option>
+        </select><br><br>
+        <label for="sum">Сумма:</label>
+        <input type="number" id="sum" name="sum" required min="0">
+        <br><br>
+        <label for="desc">Примечание:</label>
+        <input type="text" id="desc" name="desc">
+        <br><br>
+        <label for="chosenDate">Выберите дату:</label>
+        <input type="date" id="chosenDate" name="chosenDate" value="" required/>
+        <br><br>
+        <input type="submit" value="Сохранить">
+    </form>
+</div>
+
+<style>
+    /* Стиль для ссылки "Статистика" */
+    #a {
+        text-decoration: none; /* Убрать подчеркивание с ссылки */
+        color: #007bff; /* Цвет текста ссылки */
+        font-weight: bold; /* Полужирный шрифт для ссылки */
+        font-size: 18px; /* Размер шрифта */
+    }
+
+    /* Стиль для контейнера формы */
+    form {
+        max-width: 400px; /* Максимальная ширина формы */
+        margin: 0 auto; /* Выравнивание формы по центру страницы */
+        padding: 20px; /* Отступ вокруг формы */
+        border: 1px solid #ccc; /* Граница формы */
+        background-color: #f5f5f5; /* Фоновый цвет формы */
+        border-radius: 5px; /* Закругление углов формы */
+    }
+
+    /* Стиль для метки (label) */
+    form label {
+        display: block; /* Сделать метку блочным элементом (на новой строке) */
+        margin-bottom: 10px; /* Отступ снизу метки */
+        font-weight: bold; /* Полужирный шрифт для метки */
+    }
+
+    /* Стиль для выпадающего списка (select) */
+    form select {
+        width: 100%; /* Занимать всю доступную ширину */
+        padding: 10px; /* Внутренние отступы */
+        border: 1px solid #ccc; /* Граница */
+        border-radius: 5px; /* Закругление углов */
+    }
+
+    /* Стиль для поля ввода числа (input[type="number"]) */
+    form input[type="number"] {
+        width: calc(100% - 10px); /* Занимать всю доступную ширину с отступом 10px справа */
+        padding: 10px; /* Внутренние отступы */
+        border: 1px solid #ccc; /* Граница */
+        border-radius: 10px; /* Закругление углов */
+    }
+    form input[type="text"] {
+        width: calc(100% - 10px); /* Занимать всю доступную ширину с отступом 10px справа */
+        padding: 10px; /* Внутренние отступы */
+        border: 1px solid #ccc; /* Граница */
+        border-radius: 10px; /* Закругление углов */
+    }
+
+    /* Стиль для поля выбора даты (input[type="date"]) */
+    form input[type="date"] {
+        width: calc(100% - 10px); /* Занимать всю доступную ширину с отступом 10px справа */
+        padding: 10px; /* Внутренние отступы */
+        border: 1px solid #ccc; /* Граница */
+        border-radius: 10px; /* Закругление углов */
+    }
+
+    /* Стиль для кнопки "Сохранить" (input[type="submit"]) */
+    form input[type="submit"] {
+        background-color: #007bff; /* Цвет фона кнопки */
+        color: #fff; /* Цвет текста кнопки */
+        padding: 10px 20px; /* Внутренние отступы кнопки */
+        border: none; /* Убрать границу кнопки */
+        border-radius: 5px; /* Закругление углов */
+        cursor: pointer; /* Изменить курсор при наведении на кнопку */
+        margin-top: 10px; /* Отступ сверху кнопки */
+        font-weight: bold; /* Полужирный шрифт для кнопки */
+    }
+    .link-container {
+        text-align: center; /* Выравнивание текста внутри контейнера по центру */
+    }
+    /* Медиазапрос для мобильных устройств */
+    @media (max-width: 767px) {
+        form {
+            max-width: 100%; /* Занимать всю доступную ширину на мобильных устройствах */
+        }
+    }
+</style>
+<script>
+    // Получаем текущую дату
+    var currentDate = new Date();
+
+    // Преобразуем текущую дату в строку формата "ГГГГ-ММ-ДД"
+    var formattedDate = currentDate.toISOString().split('T')[0];
+
+    // Устанавливаем значение поля ввода date
+    document.getElementById("chosenDate").value = formattedDate;
+</script>
+</body>
+</html>

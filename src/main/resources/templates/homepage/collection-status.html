@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="content">
+    <p th:text="${percentage}" class="inline-paragraph"></p>
+    <div id="loading-bar">
+        <div id="progress-bar" th:style="'width: ' + ${percentage} + '%;'"></div>
+    </div>
+    <!-- Здесь будет отображаться контент, загружаемый AJAX -->
+</div>
+<style>
+    #loading-bar {
+        width: 100%;
+        height: 20px;
+        background-color: #ccc;
+    }
+
+    #progress-bar {
+        height: 100%;
+        background-color: green;
+        transition: width 0.3s; /* Добавление анимации для сглаженного заполнения */
+    }
+</style>
+<script th:inline="javascript">
+    function updateProgress() {
+        fetch('/collection-status')
+            .then(response => response.json()) // Предполагая, что сервер возвращает JSON
+            .then(data => {
+                // Обновить элементы на странице с полученными данными
+                document.getElementById('percentage').innerText = data.percentage;
+                document.getElementById('progress-bar').style.width = data.percentage + '%';
+            })
+            .catch(error => {
+                console.error('Произошла ошибка:', error);
+            });
+    }
+
+    // Обновление прогресса каждые 5 секунд
+    setInterval(updateProgress, 500);
+</script>
+</body>
+</html>

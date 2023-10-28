@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" media="all" href="../../styles.css" th:href="@{src/main/resources/static/styles/styles.css}"/>
+    <title>Ввод информации</title>
+</head>
+<body>
+<div class="form-container">
+    <h1>Введите информацию</h1>
+    <form method="post" action="/">
+        <div class="form-group">
+            <label for="name">Имя:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="surname">Фамилия:</label>
+            <input type="text" id="surname" name="surname" required>
+        </div>
+        <div class="form-group">
+            <label for="midname">Отчество:</label>
+            <input type="text" id="midname" name="midname" required>
+        </div>
+        <div class="form-group">
+            <label for="age">Возраст:</label>
+            <input type="number" id="age" name="age" required>
+        </div>
+        <button type="submit">Отправить</button>
+    </form>
+    <br><a id="a" href="/delete-all">удалить все данные</a>
+</div>
+<h1>Users:</h1>
+<div>
+    <ul>
+        <li th:each="item : ${data}" class="list-item">
+            <form th:action="@{/delete}" method="post">
+                <input type="hidden" th:name="itemId" th:value="${item.getId()}" />
+                <div class="list-item-content">
+                    <p th:text="${item}" class="inline-paragraph"></p>
+                    <button type="submit" class="inline-button">Удалить</button>
+                </div>
+            </form>
+        </li>
+    </ul>
+</div>
+<!--<ul>-->
+<!--    <p th:each="item : ${data}" th:text="${item}"></p>-->
+<!--</ul>-->
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+    }
+
+    .form-container {
+        max-width: 400px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        text-align: right;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    ul {
+        text-align: center;
+    }
+    .inline-paragraph {
+        display: inline; /* Сделать абзац строчным элементом */
+        margin-right: 10px; /* Добавить небольшой отступ справа между абзацем и кнопкой */
+    }
+
+    .inline-button {
+        display: inline; /* Сделать кнопку строчным элементом */
+        vertical-align: middle; /* Выровнять кнопку вертикально по центру абзаца (может потребоваться настройка) */
+    }
+    .form-group {
+        margin-bottom: 15px;
+        text-align: right; /* Выравнивание по правой стороне */
+        padding-right: 20px; /* Отступ справа */
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        text-align: left; /* Выравнивание по левой стороне */
+    }
+
+    input[type="text"],
+    input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        font-size: 16px;
+        text-align: left; /* Выравнивание по левой стороне */
+        padding-right: 10px; /* Отступ справа */
+    }
+
+    button {
+        background-color: #242524;
+        color: #ffffff;
+        border: none;
+        border-radius: 3px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+
+    }
+    button:hover {
+        background-color: #1a1a1a;
+    }
+
+
+      .list-item {
+          background-color: #f9f9f9;
+          border: 1px solid #ddd;
+          /*padding: 10px;*/
+          /*margin: 5px 0;*/
+          list-style-type: none;
+
+      }
+
+    .list-item-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+ul{
+    list-style-type: none; /* Убираем маркеры (точки) */
+}
+    .inline-paragraph {
+        flex: 1; /* Растянуть абзац, чтобы он занимал всю доступную ширину */
+        border: 1px solid #ddd; /* Рамка вокруг параграфа */
+        padding: 10px; /* Внутренний отступ вокруг текста */
+        margin: 4px;
+        background-color: white; /* Белый фон */
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); /* Тень */
+    }
+
+    .inline-button {
+        background-color: #f44336; /* Цвет кнопки */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+</style>
+</body>
+</html>
