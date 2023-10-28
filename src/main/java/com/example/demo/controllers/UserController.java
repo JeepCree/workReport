@@ -69,9 +69,6 @@ public class UserController {
     }
     @PostMapping("/saveUser")
     public String saveUser(int itemId, Model model) {
-
-//            userRepository.deleteById(itemId);
-
-        return "redirect:/all-users";
+return "redirect:/all-users";
     }
 }
