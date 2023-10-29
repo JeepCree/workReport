@@ -11,6 +11,7 @@ public class Base {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
+    private long userId;
     private String user;
     private String nameOperation;
     private int sum;
@@ -26,6 +27,14 @@ public class Base {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public String getUser() {
