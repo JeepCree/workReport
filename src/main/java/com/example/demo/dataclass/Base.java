@@ -15,7 +15,7 @@ public class Base {
     private String user;
     private String nameOperation;
     private int sum;
-    @Temporal(TemporalType.DATE) // Указываем тип времени (DATE)
+    @Temporal(TemporalType.DATE)
     private Date date;
     private String description;
     @CreationTimestamp
