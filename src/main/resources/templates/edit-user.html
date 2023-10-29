@@ -45,6 +45,7 @@
 
     <form th:action="@{/deleteUser}" method="post">
         <input type="hidden" th:name="itemId" th:value="${user.getId()}" />
+        <input type="hidden" th:name="itemIds" th:value="${user.getId()}" />
         <button type="submit" class="delete-button">Удалить пользователя</button>
     </form>
 

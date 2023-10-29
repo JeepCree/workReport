@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Date;
+import java.sql.SQLOutput;
 import java.util.List;
 @Controller
 @RequestMapping(path="/")
@@ -20,12 +21,16 @@ public class ReportController {
     private final UserService userService;
     private final OperationService operationService;
     @Autowired
-    public ReportController (UserService userService, OperationService operationService) {
+    private final ReportRepository reportRepository;
+    @Autowired
+    public ReportController (UserService userService,
+                             OperationService operationService,
+                             ReportRepository reportRepository){
         this.userService = userService;
         this.operationService = operationService;
+        this.reportRepository = reportRepository;
     }
-    @Autowired
-    ReportRepository reportRepository;
+
     @GetMapping("/add-operation")
     public String getOperationPage(Model model) {
         List<String> userNameBase = userService.getAllUserNames();
@@ -37,14 +42,13 @@ public class ReportController {
     @PostMapping("/add-operation")
     public String setOperation(String userName, String nameOperation, @RequestParam(name = "sum", required = false) Integer sum, String desc, Date chosenDate, Model model) {
         Base base = new Base();
+        base.setUserId(userService.findUserIdByName(userName));
         base.setUser(userName);
         base.setNameOperation(nameOperation);
-
         String operationType = operationService.getOperationType(nameOperation);
         if (operationType != null && operationType.equals("expense")) {
             sum = sum * -1;
         }
-
         base.setSum(sum);
         base.setDescription(desc);
         base.setDate(chosenDate);
@@ -64,7 +68,8 @@ public class ReportController {
     public String setAllOperationPage(String userName, Model model) {
         List<String> userNameBase = userService.getAllUserNames();
         model.addAttribute("userNameBase", userNameBase);
-        List<Base> data = reportRepository.findByUser(userName);
+//        List<Base> data = reportRepository.findByIdUser(userService.findUserIdByName(userName));
+        List<Base> data = reportRepository.findBaseByUserIdEquals(userService.findUserIdByName(userName));
         model.addAttribute("data", data);
         model.addAttribute("userName", userName);
         Double summa = reportRepository.sumAmount(userName);

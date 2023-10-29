@@ -6,6 +6,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,4 +16,7 @@ public interface ReportRepository extends JpaRepository<Base, Integer> {
     List<Base> findByUser(@Param("userName") String userName);
     @Query("SELECT SUM(b.sum) FROM Base b WHERE b.user = :userName")
     Double sumAmount(@Param("userName") String userName);
+    List<Base> findBaseByUserIdEquals(long userId);
+    @Transactional
+    List<Base> deleteAllByUserIdEquals(long userId);
 }

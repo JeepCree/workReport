@@ -1,7 +1,9 @@
 package com.example.demo.controllers;
 
 import com.example.demo.dataclass.User;
+import com.example.demo.models.ReportRepository;
 import com.example.demo.models.UserRepository;
+import com.example.demo.service.OperationService;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,13 +20,19 @@ import java.util.List;
 @RequestMapping(path="/")
 public class UserController {
     @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
     private final UserService userService;
-
+    private final ReportRepository reportRepository;
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService,
+                          UserRepository userRepository,
+                          ReportRepository reportRepository){
+        this.userRepository = userRepository;
         this.userService = userService;
+        this.reportRepository = reportRepository;
     }
+
+
     @GetMapping("/add-user")
     public String loadUserPage(Model model) {
         return "add-user";
@@ -57,7 +65,9 @@ public class UserController {
         return "edit-user";
     }
     @PostMapping("/deleteUser")
-    public String deleteUser(int itemId, Model model) {
+    public String deleteUser(int itemId, long itemIds, Model model) {
+        //добавить логику удаления всех транзакций пользователя
+        reportRepository.deleteAllByUserIdEquals(itemIds);
         if (userRepository.existsById(itemId)) {
             userRepository.deleteById(itemId);
         } else {
@@ -74,6 +84,7 @@ public class UserController {
         user.setDate(date);
         user.setSex(sex);
         userService.updateUserById(id, user);
+        //добавить логику изменения имени пользователя в Base
         return "redirect:/all-users";
     }
 }

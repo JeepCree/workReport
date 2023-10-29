@@ -25,6 +25,11 @@ public class UserService {
                 .collect(Collectors.toList());
         return userNameBase;
     }
+    public long findUserIdByName(String userName){
+        User user = userRepository.findUserByFioIsLike(userName);
+        long userId = user.getId();
+        return userId;
+    }
     public User updateUserById(Integer id, User updatedUser) {
         User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Пользователь с id " + id + " не найден"));
