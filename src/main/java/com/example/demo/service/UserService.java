@@ -26,7 +26,7 @@ public class UserService {
         return userNameBase;
     }
     public long findUserIdByName(String userName){
-        User user = userRepository.findUserByFioIsLike(userName);
+        User user = userRepository.findUserByFioEquals(userName);
         long userId = user.getId();
         return userId;
     }
