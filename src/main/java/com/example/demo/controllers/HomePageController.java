@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomePageController {
     @GetMapping("/")
     public String indexPage(Model model) {
+        System.out.println("return homepage view");
         return "index";
     }
 }

@@ -35,6 +35,7 @@ public class UserController {
 
     @GetMapping("/add-user")
     public String loadUserPage(Model model) {
+        System.out.println("return addUserPage view");
         return "add-user";
     }
     @PostMapping("/add-user")
@@ -52,6 +53,7 @@ public class UserController {
     public String editPage(Model model) {
         List<User> data = userRepository.findAll();
         model.addAttribute("data", data);
+        System.out.println("return allUsersPage view");
         return "all-users";
     }
     @GetMapping("/edit-user")
