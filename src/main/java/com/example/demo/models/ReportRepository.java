@@ -12,10 +12,13 @@ import java.util.List;
 
 public interface ReportRepository extends JpaRepository<Base, Integer> {
     List<Base> findAll(Sort sort);
+
     @Query("SELECT base FROM Base base WHERE base.user = :userName")
     List<Base> findByUser(@Param("userName") String userName);
+
     @Query("SELECT SUM(b.sum) FROM Base b WHERE b.user = :userName")
     Double sumAmount(@Param("userName") String userName);
+
     List<Base> findBaseByUserIdEquals(long userId);
     @Transactional
     List<Base> deleteAllByUserIdEquals(long userId);
